@@ -9,7 +9,8 @@ var curId = _.size(users);
 
 /* GET users listing. */
 router.get('/', function(req, res) {
-  res.json(_.toArray(users));
+  let allUsers = res.json(_.toArray(users));
+  return res.render("admin.html", {allUsers})
 });
 
 /* Create a new user */
