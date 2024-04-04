@@ -1,5 +1,5 @@
 var express = require('express');
-var router = express.Router();
+var router = new express.Router();
 var _ = require('lodash');
 var logger = require('../lib/logger');
 var log = logger();
@@ -10,6 +10,7 @@ var curId = _.size(users);
 /* GET users listing. */
 router.get('/', function(req, res) {
   let allUsers = res.json(_.toArray(users));
+  console.log(allUsers);
   return res.render("admin.html", {allUsers})
 });
 
