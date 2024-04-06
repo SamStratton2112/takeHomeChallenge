@@ -1,7 +1,7 @@
-var debug = require('debug')('frontend-code-challenge');
+// var debug = require('debug')('frontend-code-challenge');
 var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
+const cors = require("cors");
+// var favicon = require('serve-favicon');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var logger = require('./lib/logger');
@@ -11,10 +11,10 @@ var app = express();
 
 var log = logger(app);
 
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-// app.use(express.static(path.join(__dirname, 'public')));
 
 // set up route name 
 app.use('/users', users);
@@ -37,9 +37,10 @@ app.use(function(err, req, res, next) {
   });
 });
 
-// set up server 
-app.set('port', process.env.PORT || 3000);
+// set up port for front end access  
+app.set('port', process.env.PORT || 5000);
 
+// start server 
 var server = app.listen(app.get('port'), function() {
   log.info('Express server listening on http://localhost:%d', server.address().port);
 });

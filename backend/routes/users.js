@@ -7,7 +7,7 @@ var log = logger();
 var users = require('../init_data.json').data;
 var curId = _.size(users);
 
-/* GET users listing. */
+/* GET users list. */
 router.get('/', function(req, res) {
   res.json(_.toArray(users));
 });

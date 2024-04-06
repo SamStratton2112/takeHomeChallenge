@@ -1,24 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import {useState, useEffect} from 'react';
+import '../style/App.css';
+import AllRoutes from './AllRoutes';
+import UsersApi from '../api';
+import UserContext from '../UserContext';
+import NavigationBar from './NavigationBar';
 
 function App() {
+  const [users, setUsers]= useState();
+  const [newUser, setNewUser] = useState(null);
+  const oldUser = newUser;
+  // get all users 
+  useEffect(()=>{
+    async function getAllUsers(){
+      let users = await UsersApi.getAllUsers();
+      setUsers(users);
+    }
+    async function addUser(){
+      await UsersApi.addUser(newUser.email, newUser.firstName, newUser.lastName, newUser.status);
+    }
+    if(oldUser !== newUser || newUser !== null) addUser(newUser);
+    getAllUsers();
+  },[newUser]);
+  
+  console.log(users);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <UserContext.Provider value={{users, setNewUser}}>
+      <div className="App">
+        <NavigationBar/>
+        <AllRoutes/>
+      </div>
+    </UserContext.Provider>
   );
 }
 
