@@ -1,4 +1,4 @@
-import axios from "axios"
+import axios from "axios";
 
 // set base url 
 const BASE_URL  = process.env.REACT_APP_BASE_URL || "http://localhost:5000";

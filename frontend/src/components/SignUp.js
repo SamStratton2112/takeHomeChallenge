@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import UserContext from '../UserContext'
+import '../style/Signup.css'
 
 const SignUp = () =>{
     const [formData, setFormData] = useState({email:'', firstName:'', lastName:''});
@@ -15,46 +16,54 @@ const SignUp = () =>{
     };
     const handleSubmit = e=>{
         e.preventDefault();
-        setNewUser({...formData, status : "pending"});
-        nav('/')
+        if(!formData.email.length<1 || !formData.firstName.length<1 || !formData.lastName.length<1){
+            setNewUser({...formData, status : "pending"});
+            nav('/admin')
+        }else{alert('Missing Information!')}
     }
     console.log(formData)
 
     return (
         <>
-            <h1>Yodlr Registration Portal</h1>
-            <form onSubmit={handleSubmit}>
-            <label htmlFor="email">Email: </label>
+        <h1>Register for Yodlr!</h1>
+        <form onSubmit={handleSubmit}>
+             <label htmlFor="firstName">First Name: </label>
             <input
-                type='email'
-                id='email'
-                name='email'
-                placeholder="email"
-                value={formData.email }
-                onChange={handleChange}
-            />
-            <br/>
-                <label htmlFor="firstName">First Name: </label>
-                <input
+                className="m-1"
                 type='text'
                 id='firstName'
                 name='firstName'
-                placeholder="firstName"
+                style={{borderRadius: "5px"}}
+                placeholder="First Name"
                 value={formData.firstName}
                 onChange={handleChange}
                 />
                 <br/>
             <label htmlFor="lastName">Last Name: </label>
             <input
+            className="m-1"
                 type='text'
+                style={{borderRadius: "5px"}}
                 id='lastName'
                 name='lastName'
-                placeholder="lastName"
+                placeholder="Last Name"
                 value={formData.lastName }
                 onChange={handleChange}
             />
             <br/>
-            <button>Register!</button>
+            <label htmlFor="email">Email: </label>
+            <input
+                className="m-1"
+                style={{borderRadius: "5px"}}
+                type='email'
+                id='email'
+                name='email'
+                placeholder="Email@email.com"
+                value={formData.email }
+                onChange={handleChange}
+            />
+            <br/>
+            <button className="m-1" style={{borderRadius: "5px"}} >Register!</button>
         </form>
         </>
     )

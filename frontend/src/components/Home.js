@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 const Home = ()=>{
     return(
         <>
-        <h1>Yodlr Design Challenge</h1>
+        <h1>Welcome to Yodlr!</h1>
         </>
     )
 }
